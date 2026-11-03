@@ -21,7 +21,7 @@
 
 ## ما الذي يوفره القالب؟
 
-- أقسام قابلة لإعادة الاستخدام: الهوية، النبذة، المشاريع وتفاصيلها، المهارات، الخبرة، التعليم، والتواصل.
+- أقسام قابلة لإعادة الاستخدام: الهوية، النبذة، المشاريع وتفاصيلها وصورها الاختيارية، المهارات، الخبرة، التعليم، والتواصل.
 - تحكم في ترتيب الأقسام وإظهارها وألوانها وخطوطها واتجاهها، دون إعادة بناء المحرك.
 - تحقق يميّز بين البيانات **الفارغة** و**الجزئية** و**المكتملة**، مع إخفاء الأقسام الفارغة والروابط غير الصالحة.
 - React وTypeScript وVite وTailwind، مع الخطوط المحلية ودعم العربية وتقليل الحركة.
@@ -105,7 +105,7 @@ vendor/                     نسخة الإضافة الأصلية المحلي�
 ## الوثائق والمهارات
 
 - [مواصفة قالب المحفظة](docs/PORTFOLIO_TEMPLATE_SPEC.md) و[دليل تصميم المحفظة للوكيل](docs/AI_PORTFOLIO_GUIDE.md).
-- [مكتبات المحفظة](docs/PORTFOLIO_LIBRARIES.md) و[الخطوط والطباعة](docs/TYPOGRAPHY.md) و[الفهرس الكامل للمكتبات](docs/PROJECT_LIBRARIES.md).
+- [بحث المكتبات المقترحة](docs/PORTFOLIO_LIBRARY_RESEARCH.md) و[مكتبات المحفظة](docs/PORTFOLIO_LIBRARIES.md) و[الخطوط والطباعة](docs/TYPOGRAPHY.md) و[الفهرس الكامل للمكتبات](docs/PROJECT_LIBRARIES.md).
 - [مواصفة العرض الأصلي](docs/PRESENTATION_TEMPLATE_SPEC.md) و[توجيه عروض المذكرات](docs/THESIS_PRESENTATION_ROUTER.md).
 - [مراجعة أمن الاعتمادات](docs/SECURITY_DEPENDENCIES.md) وشرح النسخة المحلية للإضافة.
 - [مهارة تصميم المحفظة](.agents/skills/portfolio-template-design/SKILL.md). عدّل قواعد `.ruler/rules/` ثم شغّل `npm run ai:rules` بدل تحرير ملفات التعليمات المولّدة يدويًا.
@@ -126,4 +126,4 @@ vendor/                     نسخة الإضافة الأصلية المحلي�
 
 نُسخت الملفات المتتبعة من [powerpoint](https://github.com/exposiaservices-dot/powerpoint) عند الالتزام `c53a68efe051ed17c236e3df64a5663f3788a3bc` دون تاريخ Git أو اعتمادات مثبتة أو أسرار. محفوظان أيضًا شعار المصدر في `public/logo.png` وصورة معاينته في `assets/upstream/powerpoint-social-preview.png`.
 
-بقيت إشعارات التراخيص والإسناد الخارجية، ومنها `public/licenses/` و`src/components/{charts,gallery}/LICENSES/` و`assets/algerian-universities/source/`. لم يُعثر على ترخيص شامل في جذر المصدر؛ راجع الأذونات وتراخيص الأصول قبل إعادة التوزيع أو النشر. أُضيفت `zod` (MIT) لفحص شكل بيانات المحفظة وقت التشغيل؛ راجع [فهرس المكتبات](docs/PROJECT_LIBRARIES.md).
+بقيت إشعارات التراخيص والإسناد الخارجية، ومنها `public/licenses/` و`src/components/{charts,gallery}/LICENSES/` و`assets/algerian-universities/source/`. لم يُعثر على ترخيص شامل في جذر المصدر؛ راجع الأذونات وتراخيص الأصول قبل إعادة التوزيع أو النشر. أُضيفت `zod` (MIT) لفحص البيانات و`yet-another-react-lightbox` (MIT) لصور المشاريع و`axe-core` (MPL-2.0) لاختبارات الوصول؛ راجع [فهرس المكتبات](docs/PROJECT_LIBRARIES.md).

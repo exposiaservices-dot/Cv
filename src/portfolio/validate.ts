@@ -1,12 +1,12 @@
 import { portfolioDataSchema } from './schema';
-import { hasText, validLink } from './content';
-export { hasText, safeUrl, validLink } from './content';
+import { hasText, validImage, validLink } from './content';
+export { hasText, safeUrl, validLink, safeImageUrl, validImage } from './content';
 import type { PortfolioData } from './types';
 
 const recordHasText = (record: object) => Object.values(record).some(value => typeof value === 'string' && hasText(value));
 export function isPortfolioBlank(data: PortfolioData): boolean {
   return !recordHasText(data.identity) && !hasText(data.about) &&
-    !data.projects.some(p => hasText(p.title) || hasText(p.summary) || hasText(p.detail) || p.tags.some(hasText) || p.links.some(recordHasText)) &&
+    !data.projects.some(p => hasText(p.title) || hasText(p.summary) || hasText(p.detail) || p.tags.some(hasText) || p.links.some(recordHasText) || p.images?.some(recordHasText)) &&
     !data.skills.some(hasText) && !data.experience.some(recordHasText) && !data.education.some(recordHasText) && !data.contact.some(recordHasText);
 }
 export type PortfolioStatus = 'blank' | 'partial' | 'complete';
@@ -25,5 +25,6 @@ export function validatePortfolio(input: unknown): PortfolioValidation {
   if (!data.projects.some(p => hasText(p.title))) issues.push('projects.title');
   if (!data.contact.some(validLink)) issues.push('contact');
   if ([...data.contact, ...data.projects.flatMap(p => p.links)].some(link => (hasText(link.label) || hasText(link.url)) && !validLink(link))) issues.push('links.invalid');
+  if (data.projects.some(project => project.images?.some(image => (hasText(image.src) || hasText(image.alt)) && !validImage(image)))) issues.push('images.invalid');
   return { status: issues.length ? 'partial' : 'complete', issues };
 }

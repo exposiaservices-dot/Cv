@@ -12,3 +12,7 @@
 .portfolio-tags li { border: 1px solid var(--portfolio-muted); border-radius: 999px; padding: .25rem .8rem; }
 .portfolio a { color: var(--portfolio-accent); text-decoration: underline; text-underline-offset: .2em; }
 .portfolio a:focus-visible { outline: 3px solid var(--portfolio-accent); outline-offset: 4px; }
+.portfolio-media { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: .75rem; margin-block: 1rem; }
+.portfolio-media-button { cursor: pointer; border: 1px solid var(--portfolio-muted); border-radius: .75rem; overflow: hidden; padding: 0; background: var(--portfolio-bg); }
+.portfolio-media-button img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.portfolio-media-button:focus-visible, .portfolio button:focus-visible { outline: 3px solid var(--portfolio-accent); outline-offset: 4px; }

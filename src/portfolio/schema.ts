@@ -6,6 +6,7 @@ const linkSchema = z.strictObject({ label: z.string(), url: z.string() });
 const projectSchema = z.strictObject({
   id: z.string(), title: z.string(), summary: z.string(), detail: z.string(),
   tags: z.array(z.string()), links: z.array(linkSchema),
+  images: z.array(z.strictObject({ src: z.string(), alt: z.string() })).optional(),
 });
 const experienceSchema = z.strictObject({ role: z.string(), organization: z.string(), period: z.string(), description: z.string() });
 const educationSchema = z.strictObject({ qualification: z.string(), institution: z.string(), period: z.string(), description: z.string() });

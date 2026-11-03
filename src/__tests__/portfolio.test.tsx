@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Portfolio from '@/portfolio/Portfolio';
 import { portfolio, portfolioDesign } from '@/data/portfolio';
-import { isPortfolioBlank, safeUrl, validatePortfolio } from '@/portfolio/validate';
+import { isPortfolioBlank, safeImageUrl, safeUrl, validatePortfolio } from '@/portfolio/validate';
 import type { PortfolioData } from '@/portfolio/types';
 
 const blank = (): PortfolioData => structuredClone(portfolio);
@@ -54,6 +54,32 @@ describe('portfolio template', () => {
     expect(result.issues).toContain('schema.identity.name');
     expect(JSON.stringify(result)).not.toContain('123');
     expect(validatePortfolio({ ...blank(), unexpected: 'sensitive' }).issues).toContain('schema.root');
+  });
+  it('renders only safe, described project images and flags invalid records', () => {
+    const d = blank();
+    d.projects = [{ id: 'p', title: '', summary: '', detail: '', tags: [], links: [], images: [
+      { src: './images/work.webp', alt: 'وصف الصورة' },
+      { src: 'javascript:alert(1)', alt: 'غير آمن' },
+      { src: '/missing-alt.png', alt: ' ' },
+    ] }];
+    expect(isPortfolioBlank(d)).toBe(false);
+    expect(validatePortfolio(d).issues).toContain('images.invalid');
+    const html = render(d);
+    expect(html).toContain('alt="وصف الصورة"');
+    expect(html).toContain('aria-label="عرض الصورة: وصف الصورة"');
+    expect(html).not.toContain('javascript:'); expect(html).not.toContain('/missing-alt.png');
+    for (const bad of ['//evil.test/image', 'data:image/png;base64,x', 'mailto:x@y', 'https://user:pass@example.invalid/a.png', '/\\evil.test']) expect(safeImageUrl(bad)).toBeUndefined();
+    for (const ok of ['./image.png', 'images/image.png', '/assets/image.png', 'https://example.invalid/a.webp']) expect(safeImageUrl(ok)).toBe(ok);
+  });
+  it('allows gallery labels to be customized for another language', () => {
+    const d = blank(); d.projects = [{ id: 'p', title: 'Test', summary: '', detail: '', tags: [], links: [], images: [{ src: './example.png', alt: 'Description' }] }];
+    const html = render(d, { ...portfolioDesign, lang: 'en', direction: 'ltr', galleryLabels: { open: 'Open photo' } });
+    expect(html).toContain('aria-label="Open photo: Description"');
+  });
+  it('accepts an empty optional image record as blank and validates types', () => {
+    const d = blank(); d.projects = [{ id: '', title: '', summary: '', detail: '', tags: [], links: [], images: [{ src: ' ', alt: '' }] }];
+    expect(validatePortfolio(d).status).toBe('blank'); expect(render(d)).not.toContain('<img');
+    expect(validatePortfolio({ ...d, projects: [{ ...d.projects[0], images: [{ src: 7, alt: '' }] }] }).issues).toContain('schema.projects.0.images.0.src');
   });
   it('rejects unsafe and incomplete links without emitting anchors', () => {
     const d = blank(); d.contact = [{ label: 'bad', url: 'javascript:alert(1)' }, { label: '', url: 'https://example.invalid' }];
