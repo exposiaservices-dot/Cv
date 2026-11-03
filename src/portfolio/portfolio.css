@@ -1,0 +1,14 @@
+.portfolio { min-height: 100vh; background: var(--portfolio-bg); color: var(--portfolio-text); font-family: var(--font-body, system-ui, sans-serif); overflow-wrap: anywhere; }
+.portfolio-container { width: min(var(--portfolio-width), calc(100% - 3rem)); margin-inline: auto; padding-block: clamp(3rem, 8vw, 7rem); }
+.portfolio-identity, .portfolio-section { margin-block-end: clamp(3rem, 6vw, 5rem); }
+.portfolio h1 { font-size: clamp(2.5rem, 7vw, 5rem); line-height: 1.2; }
+.portfolio h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-block-end: 1.5rem; }
+.portfolio h3 { font-size: 1.25rem; }
+.portfolio p { white-space: pre-line; margin-block: .6rem; color: var(--portfolio-muted); }
+.portfolio .portfolio-title { font-size: 1.4rem; color: var(--portfolio-accent); }
+.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+.portfolio-card { background: var(--portfolio-surface); border-radius: 1rem; padding: 1.5rem; }
+.portfolio-tags, .portfolio-links { display: flex; flex-wrap: wrap; gap: .75rem; padding: 0; margin-block: 1rem; list-style: none; }
+.portfolio-tags li { border: 1px solid var(--portfolio-muted); border-radius: 999px; padding: .25rem .8rem; }
+.portfolio a { color: var(--portfolio-accent); text-decoration: underline; text-underline-offset: .2em; }
+.portfolio a:focus-visible { outline: 3px solid var(--portfolio-accent); outline-offset: 4px; }

@@ -1,0 +1,25 @@
+# Intentionally no publishing or artifact upload. This manual workflow only verifies a build.
+# Private hosting and its access controls must be chosen and approved separately.
+name: Verify deployment build (no publication)
+on:
+  workflow_dispatch:
+    inputs:
+      base_path:
+        description: 'Vite base path, e.g. / or /portfolio/'
+        required: true
+        default: '/'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+        env:
+          BASE_PATH: ${{ inputs.base_path }}
